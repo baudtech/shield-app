@@ -57,6 +57,10 @@ export default function SettingsForm(props) {
       roles = maker ? "maker" : "courier_request"
     }
 
+    if (role.coordinator) {
+      roles = roles + ",coordinator";
+    }
+
     UpdateRole(roles, (success) => {
       if (!success) return;
 
