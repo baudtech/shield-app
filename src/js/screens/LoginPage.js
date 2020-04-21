@@ -11,7 +11,7 @@ import {
 import { SetUser, CreateUser } from '../utils/DatabaseUtils';
 
 import Button from '../components/Button';
-import { UserContext } from '../context/UserContext';
+import { UserContext } from '../context';
 
 export default function LoginPage({ navigation }) {
   const [user, setUser] = useContext(UserContext);

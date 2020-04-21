@@ -18,8 +18,8 @@ export default function CheckboxRow(props) {
 const styles = StyleSheet.create({
   checkboxRow: {
     flexDirection: 'row',
-    marginTop: 10,
-    marginBottom: 10,
+    marginTop: 5,
+    marginBottom: 5,
     justifyContent: 'space-between',
     alignItems: 'center',
   },

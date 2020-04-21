@@ -12,8 +12,11 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import MainStackScreen from './MainStackScreen';
 import { HelpModal, PrivacyModal, QRCodeModal, QRScannerModal } from './src/js/screens';
 
-import { UserContextProvider } from './src/js/context/UserContext';
-import { ProfileContextProvider } from './src/js/context/ProfileContext';
+import {
+  UserContextProvider,
+  ProfileContextProvider,
+  RoleContextProvider
+} from './src/js/context';
 
 import { GOOGLE_SIGN_IN_KEY } from './src/appData.js'
 
@@ -33,18 +36,21 @@ export default function App() {
 
         <UserContextProvider>
           <ProfileContextProvider>
-            <NavigationContainer>
-              <RootStack.Navigator headerMode="none" mode="modal">
+            <RoleContextProvider>
 
-                <RootStack.Screen name="Main" component={MainStackScreen} options={{ headerShown: false }} />
-                <RootStack.Screen name="HelpModal" component={HelpModal} />
-                <RootStack.Screen name="PrivacyModal" component={PrivacyModal} />
-                <RootStack.Screen name="QRCodeModal" component={QRCodeModal} />
-                <RootStack.Screen name="QRScannerModal" component={QRScannerModal} />
-              
-              </RootStack.Navigator>
-            </NavigationContainer>
+              <NavigationContainer>
+                <RootStack.Navigator headerMode="none" mode="modal">
 
+                  <RootStack.Screen name="Main" component={MainStackScreen} options={{ headerShown: false }} />
+                  <RootStack.Screen name="HelpModal" component={HelpModal} />
+                  <RootStack.Screen name="PrivacyModal" component={PrivacyModal} />
+                  <RootStack.Screen name="QRCodeModal" component={QRCodeModal} />
+                  <RootStack.Screen name="QRScannerModal" component={QRScannerModal} />
+                
+                </RootStack.Navigator>
+              </NavigationContainer>
+
+            </RoleContextProvider>
           </ProfileContextProvider>
         </UserContextProvider>
 

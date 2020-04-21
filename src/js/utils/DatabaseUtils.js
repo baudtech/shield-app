@@ -40,7 +40,19 @@ export function GetRole(callback) {
   database().ref(`/users/${user.uid}`)
     .once('value')
     .then((snapshot) => {
-      callback(snapshot.val().role);
+      if (snapshot.val().role.length == 0) {
+        callback({})
+        return;
+      }
+
+      const roleString = snapshot.val().role.split(",");
+      const roles = {}
+
+      for (var i = 0; i < roleString.length; i++) {
+        roles[roleString[i]] = true;
+      }
+
+      callback(roles);
     })
     .catch((error) => {
       console.log(error);

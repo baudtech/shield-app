@@ -3,6 +3,7 @@ import { View, Text } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
+// import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -15,43 +16,32 @@ import {
   CoordinatorPage
 } from './src/js/screens';
 
-import { GetRole, SetUser } from './src/js/utils/DatabaseUtils';
+import { SetUser } from './src/js/utils/DatabaseUtils';
 
-import { UserContext } from './src/js/context/UserContext';
+import { UserContext, RoleContext } from './src/js/context';
 
+// const MainStack = createStackNavigator();
 const MainTab = createBottomTabNavigator();
 
 export default function MainStackScreen({ navigation }) {
-  const [role, setRole] = useState(null);
+  const [role, setRole] = useContext(RoleContext);
   const user = useContext(UserContext)[0];
 
   useEffect(() => {
     SetUser(user);
-
-    if (!user && role != null) {
-      setRole(null);
-    }
-    
-    if (!user) return;
-    if (role != null) return;
-
-    GetRole((role) => {
-      setRole(role);
-    })
   }, [user]);
 
   if (!user) return <LoginPage navigation={navigation} />
   if (role == null) return (
-        <View style={{flex: 1, backgroundColor: 'white', justifyContent: 'center'}}>
-          <Text style={{fontSize: 18, textAlign: 'center'}}>Loading Profile...</Text>
-        </View>
-      )
-  
-  if (role.length === 0) {
+    <View style={{flex: 1, backgroundColor: 'white', justifyContent: 'center'}}>
+      <Text style={{fontSize: 18, textAlign: 'center'}}>Loading Profile...</Text>
+    </View>
+  )
+
+  if (Object.keys(role).length === 0) {
     return <RolePage setRole={setRole} />
   }
 
-  const roles = role.split(',')
   return (
     <MainTab.Navigator headerMode="none"
       screenOptions={({ route }) => ({
@@ -75,11 +65,11 @@ export default function MainStackScreen({ navigation }) {
         activeTintColor: '#005290',
       }}>
 
-      {roles.includes("maker") && <MainTab.Screen name="Maker" component={MakerPage} /> }
-      {role.includes("courier") && <MainTab.Screen name="Courier">
+      {role.maker && <MainTab.Screen name="Maker" component={MakerPage} /> }
+      {(role.courier || role.courier_request) && <MainTab.Screen name="Courier">
           {props => <CourierPage {...props} extraData={{role: role}} />}
         </MainTab.Screen>}
-      {roles.includes("coordinator") && <MainTab.Screen name="Coordinator" component={CoordinatorPage} /> }
+      {role.coordinator && <MainTab.Screen name="Coordinator" component={CoordinatorPage} /> }
     </MainTab.Navigator>
   );
   

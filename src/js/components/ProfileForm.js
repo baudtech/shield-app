@@ -4,7 +4,7 @@ import { View, Text, TextInput, StyleSheet, KeyboardAvoidingView, Platform } fro
 import Geocoder from 'react-native-geocoder';
 
 import Button from '../components/Button';
-import { ProfileContext } from '../context/ProfileContext';
+import { ProfileContext } from '../context';
 import { generalStyle } from '../utils/Theme';
 
 import {
@@ -62,12 +62,6 @@ export default function ProfileForm(props) {
       <FormInput profile={tempProfile} name="name" placeholder="Name" />
       <FormInput profile={tempProfile} name="address" placeholder="Address" />
       <FormInput profile={tempProfile} name="phone" placeholder="Phone" />
-
-      {!props.hideButton && 
-        <Button text="Update Info"
-        buttonStyle={[generalStyle.primaryButton, styles.updateButton]}
-        textStyle={generalStyle.primaryButtonText}
-        onPress={updateInfo} /> }
     </View>
     </KeyboardAvoidingView>
   );
@@ -93,8 +87,4 @@ const styles = StyleSheet.create({
     borderColor: '#005290',
     borderRadius: 5,
   },
-  updateButton: {
-    alignSelf: 'center',
-    marginTop: 20,
-  }
 })

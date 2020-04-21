@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 
-import { UserContext } from './UserContext';
+import { UserContext } from '.';
 import { GetProfile, SetUser, SetUUID } from '../utils/DatabaseUtils';
 
 const initalState = {

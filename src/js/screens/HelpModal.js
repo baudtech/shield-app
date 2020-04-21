@@ -5,11 +5,11 @@ import auth from '@react-native-firebase/auth';
 
 import Toolbar from '../components/Toolbar';
 import Button from '../components/Button';
-import ProfileForm from '../components/ProfileForm';
+import SettingsForm from '../components/SettingsForm';
 
 import { generalStyle } from '../utils/Theme';
 
-import { UserContext } from '../context/UserContext';
+import { UserContext } from '../context';
 
 export default function HelpModal({ navigation }) {
 
@@ -35,14 +35,12 @@ export default function HelpModal({ navigation }) {
     <View style={styles.helpPage}>
 
       <Toolbar closeButton title="Help" />
-
       <View style={styles.container}>
 
-        <ProfileForm />
-
+        <SettingsForm buttonText="Update" />
         <View style={styles.signOutView}>
           <Button text="Sign Out" 
-            buttonStyle={[generalStyle.primaryButton]}
+            buttonStyle={[generalStyle.primaryButton, styles.button]}
             textStyle={generalStyle.primaryButtonText}
             onPress={signOut} />
 
@@ -51,7 +49,6 @@ export default function HelpModal({ navigation }) {
 
           <Text style={styles.attribution}>App icon made by Freepik from www.flaticon.com</Text>
         </View>
-        
       
       </View>
 

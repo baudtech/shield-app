@@ -15,11 +15,14 @@ var makers = null;
 export default function CourierPage(props) {
   const [markers, setMarkers] = useState([]);
 
-  if (props.extraData.role.includes("courier_request")) {
+  if (props.extraData.role.courier_request) {
     return (
-      <View style={styles.loadingView}>
-        <Text style={styles.loadingText}>Your request is being processed…</Text>
-      </View>
+      <BasePage title="Courier">
+
+        <View style={styles.loadingView}>
+          <Text style={styles.loadingText}>Your request is being processed…</Text>
+        </View>
+      </BasePage>
     )
   }
 
