@@ -1,6 +1,8 @@
 # Shield App
 This is a prototype app created with React Native. It was created to help organize local maker communities that are producing any kind of face masks/shields during the COVID-19 pandemic.
 
+![](Shield-Screenshots.png)
+
 ## Setup
 To build the app follow the steps below:
 
