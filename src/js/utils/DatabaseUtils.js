@@ -94,17 +94,28 @@ export function GetQuantity(callback) {
     });
 }
 
-export function UpdateQuantity(quantity, callback) {
-  database().ref(`/makers/${user.uid}`)
-    .update({
-      'quantity': quantity
+export function CompletePickup(courier, production, callback) {
+  var quantity = 0;
+
+  database().ref(`/makers/${user.uid}/${production}`)
+    .transaction(currentQuantity => {
+      quantity = currentQuantity;
+      return 0;
     })
-    .then(() => {
-      callback(true);
-    })
-    .catch((error) => {
-      console.log(error);
-      callback(false);
+    .then((transaction) => {
+      database().ref(`/couriers/${user.uid}/${courier}`)
+        .transaction(currentList => {
+          if (currentList == null) currentList = []
+          currentList.push(production + ": " + quantity.toString());
+        
+          return currentList;
+        })
+        .then(() => {
+          callback(true);
+        })
+        .catch(e => {
+          console.log(e);
+        })
     });
 }
 
@@ -126,6 +137,19 @@ export function IncreaseQuantity(id, callback) {
     .then((transaction) => {
       callback(transaction.snapshot.val());
     });
+}
+
+export function SetUUID(uuid, callback) {
+  database().ref(`/profiles/${user.uid}`)
+    .update({
+      uuid: uuid
+    })
+    .then(() => {
+      callback(true);
+    })
+    .catch(() => {
+      callback(false);
+    })
 }
 
 export function GetProfile(callback) {

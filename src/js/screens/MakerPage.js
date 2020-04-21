@@ -18,7 +18,7 @@ import {
   materials,
 } from '../../appData';
 
-export default function MakerPage() {
+export default function MakerPage(props) {
   const [profile, setProfile] = useState({});
   const [type, setType] = useState({});
   const [production, setProduction] = useState([]);
@@ -26,6 +26,21 @@ export default function MakerPage() {
   const [dropdownData, setDropdownData] = useState([]);
 
   useEffect(() => {
+    fetchData();
+
+    // subscribe to focus event so we can re-fetch data when 
+    // coming back from the QR scan modal
+    const willFocus = props.navigation.addListener(
+      'focus',
+      () => {
+        fetchData();
+      }
+    );
+
+    return willFocus;
+  }, [])
+
+  function fetchData() {
     GetQuantity((production) => {
       if (production == null) {
         return;
@@ -49,7 +64,7 @@ export default function MakerPage() {
 
       setProduction(prod);
     });
-  }, []);
+  }
 
   function addNewProduction() {
     const empty = type.tool == null || type.mask == null || type.material == null;
@@ -145,7 +160,7 @@ export default function MakerPage() {
           data={production}
           renderItem={({ item }) => {
             return (
-              <ProductionRow item={item} onRemove={removeClicked} />
+              <ProductionRow item={item} onRemove={removeClicked} navigation={props.navigation} />
             )
           }}
           keyExtractor={item => item.id}
@@ -246,6 +261,6 @@ const styles = StyleSheet.create({
   dropdownTitle: {
     alignSelf: 'center',
     fontSize: 22,
-  }
+  },
 });
 

@@ -7,6 +7,8 @@ import CoordinatorPage from './CoordinatorPage'
 
 import HelpModal from './HelpModal'
 import PrivacyModal from './PrivacyModal'
+import QRCodeModal from './QRCodeModal'
+import QRScannerModal from './QRScannerModal'
 
 export {
 	LoginPage,
@@ -15,5 +17,7 @@ export {
 	MakerPage,
 	CoordinatorPage,
 	HelpModal,
-	PrivacyModal
+	PrivacyModal,
+	QRCodeModal,
+	QRScannerModal
 }

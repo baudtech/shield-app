@@ -7,7 +7,7 @@ export default function BasePage(props) {
 
   return (
     <View style={{flex: 1, flexDirection: 'column', backgroundColor: 'white'}}>
-      <Toolbar title={props.title}/>
+      <Toolbar leftButton={props.leftButton} title={props.title}/>
 
       <View style={[props.pageStyle, {flex: 1} ]}>
         {props.children}

@@ -1,6 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 
+import Icon from 'react-native-vector-icons/Ionicons';
+
 import Button from '../components/Button';
 
 import {
@@ -14,7 +16,7 @@ export default function ProductionRow(props) {
 
   useEffect(() => {
     setQuantity(props.item.quantity);
-  }, []);
+  }, [props.item]);
 
   function removeClicked() {
     RemoveProduction(props.item.id, (success) => {
@@ -34,6 +36,10 @@ export default function ProductionRow(props) {
     DecreaseQuantity(props.item.id, (quantity) => {
       setQuantity(quantity);
     })
+  }
+
+  function productionWasPickedUp() {
+    props.navigation.navigate("QRScannerModal", {productionID: props.item.id});
   }
 
   return (
@@ -57,8 +63,14 @@ export default function ProductionRow(props) {
             onPress={increaseClicked} buttonStyle={[styles.rowButton, styles.leftMargin]}/>
         </View>
 
-        <Button hasIcon text="md-trash" size={22} color="#A5282C"
+        <TouchableOpacity style={styles.pickupButton} onPress={productionWasPickedUp}>
+          <Text style={styles.pickupText}>Picked up</Text>
+          <Icon name="md-bicycle" color="white" size={24} style={styles.icon} />
+        </TouchableOpacity>
+
+        <Button hasIcon text="md-trash" size={24} color="#A5282C"
           buttonStyle={styles.removeButton} onPress={removeClicked}/>
+
       </View>
     </View>
   )
@@ -111,5 +123,23 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     alignSelf: 'center',
   },
+  pickupButton: {
+    marginTop: 5,
+    paddingLeft: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#005290',
+    borderRadius: 5,
+    height: 40,
+  },
+  pickupText: {
+    fontSize: 16,
+    color: 'white',
+  },
+  icon: {
+    alignSelf: 'center',
+    paddingLeft: 10,
+    paddingRight: 10,
+  }
 });
 

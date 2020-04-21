@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react'
 
+import 'react-native-get-random-values';
+import { v4 as uuidv4 } from 'uuid';
+
 import { UserContext } from './UserContext';
-import { GetProfile, SetUser } from '../utils/DatabaseUtils';
+import { GetProfile, SetUser, SetUUID } from '../utils/DatabaseUtils';
 
 const initalState = {
   name: '',
@@ -23,7 +26,18 @@ const ProfileContextProvider = (props) => {
         if (profile == null) return;
 
         profile.phone = profile.phone.toString();
-        setProfile(profile);
+
+        // create a uuid for this user
+        if (!profile.uuid) {
+          const uuid = uuidv4();
+          SetUUID(uuid, (success) => {
+            profile.uuid = uuid;
+            setProfile(profile);
+          })
+        }
+        else {
+          setProfile(profile);
+        }
       });
     }
   }, [user])

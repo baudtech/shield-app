@@ -137,6 +137,7 @@ android {
             noCompress "tflite","model"
         }
         multiDexEnabled true
+        missingDimensionStrategy 'react-native-camera', 'general' // <--- insert this line
     }
     splits {
         abi {

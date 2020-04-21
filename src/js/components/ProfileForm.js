@@ -8,7 +8,6 @@ import { ProfileContext } from '../context/ProfileContext';
 import { generalStyle } from '../utils/Theme';
 
 import {
-  GetProfile,
   UpdateProfile,
 } from '../utils/DatabaseUtils';
 

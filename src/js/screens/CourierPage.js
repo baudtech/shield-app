@@ -110,8 +110,6 @@ export default function CourierPage(props) {
   }
 
   const CustomMarker = ({marker}) => {
-
-
     return (
       <Marker
         coordinate={marker.profile.coordinates}
@@ -128,8 +126,14 @@ export default function CourierPage(props) {
     )
   }
 
+  const QRButton = ({ navigation }) => {
+    function showQR() { navigation.navigate("QRCodeModal") }
+
+    return <Button hasIcon text="md-barcode" size={24} buttonStyle={styles.qrButton} onPress={showQR} />
+  }
+
   return (
-    <BasePage title="Courier">
+    <BasePage title="Courier" leftButton={<QRButton navigation={props.navigation} />}>
       
       <MapView
         style={styles.container}
@@ -189,5 +193,10 @@ const styles = StyleSheet.create({
     fontSize: 22,
     padding: 30,
     textAlign: 'center',
-  }
+  },
+  qrButton: {
+    position: 'absolute',
+    left: 0,
+    marginLeft: 15,
+  },
 });

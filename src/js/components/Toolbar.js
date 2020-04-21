@@ -22,6 +22,8 @@ export default function Toolbar(props) {
     <View style={styles.toolbarContainer}>
       <Text style={generalStyle.screenHeader}>{props.title}</Text>
 
+      {props.leftButton && props.leftButton}
+
       {!props.hideButton &&
         <Button buttonStyle={styles.helpButton} hasIcon
           text={props.closeButton ? "md-close" : "md-settings"} size={28}

@@ -64,5 +64,7 @@
 	<string>Light</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>Use the camera to scan the Courier's QR Code</string>
 </dict>
 </plist>
